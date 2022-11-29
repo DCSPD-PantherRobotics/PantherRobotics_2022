@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.Range;
 @TeleOp
 public class TippingPoint extends LinearOpMode {
 
-    private DcMotor lift;
+    private DcMotor pick;
     private DcMotor leftB;
     private DcMotor rightF;
     private DcMotor leftF;
@@ -20,22 +20,22 @@ public class TippingPoint extends LinearOpMode {
     @Override
     public void runOpMode() {
 
-        lift = hardwareMap.get(DcMotor.class, "liftArm");
+        pick = hardwareMap.get(DcMotor.class, "pickup");
         leftF = hardwareMap.get(DcMotor.class, "leftFront");
         rightF = hardwareMap.get(DcMotor.class, "rightFront");
         leftB = hardwareMap.get(DcMotor.class, "leftBack");
         rightB = hardwareMap.get(DcMotor.class, "rightBack");
         servoMotor = hardwareMap.get(Servo.class, "testServo");
 
-        lift.setDirection(DcMotor.Direction.FORWARD);
+        pick.setDirection(DcMotor.Direction.FORWARD);
         leftF.setDirection(DcMotor.Direction.REVERSE);
         rightF.setDirection(DcMotor.Direction.FORWARD);
         rightB.setDirection(DcMotor.Direction.FORWARD);
         leftB.setDirection(DcMotor.Direction.REVERSE);
 
-        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        pick.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        double liftInitPos = lift.getCurrentPosition();
+        double liftInitPos = pick.getCurrentPosition();
 
         waitForStart();
         final double liftSpeed = 1;
