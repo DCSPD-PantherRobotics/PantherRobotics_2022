@@ -16,7 +16,6 @@ public class SpinUp extends LinearOpMode {
     private DcMotor leftF;
     private DcMotor rightB;
 
-    @Override
     public void runOpMode() {
 
         leftF = hardwareMap.get(DcMotor.class, "leftFront");
@@ -35,10 +34,10 @@ public class SpinUp extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            leftF.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x));
-            leftB.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x));
-            rightB.setPower(gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x);
-            rightF.setPower(gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x);
+            leftF.setPower(gamepad1.right_stick_x + gamepad1.left_stick_x + (-gamepad1.left_stick_y));
+            leftB.setPower(gamepad1.right_stick_x - gamepad1.left_stick_x + (-gamepad1.left_stick_y));
+            rightB.setPower(gamepad1.right_stick_x + gamepad1.left_stick_x - (-gamepad1.left_stick_y));
+            rightF.setPower(gamepad1.right_stick_x - gamepad1.left_stick_x - (-gamepad1.left_stick_y));
 
 
 
@@ -47,7 +46,7 @@ public class SpinUp extends LinearOpMode {
 //                } else {
 //                    driveMult = 0.1;
 //                }
-            }
+
         }
     }
 }
