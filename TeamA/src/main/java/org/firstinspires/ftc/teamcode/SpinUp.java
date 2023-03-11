@@ -1,41 +1,59 @@
 package org.firstinspires.ftc.teamcode;
 
-import utils.Toggle;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.Range;
 
 @TeleOp
 public class SpinUp extends OpMode {
-    DcMotor leftF;
-    DcMotor rightF;
-    DcMotor leftB;
-    DcMotor rightB;
+    // Driving
+    DcMotor M_leftF;
+    DcMotor M_rightF;
+    DcMotor M_leftB;
+    DcMotor M_rightB;
+
+    // Launching disks
+    Servo S_launch;
+    DcMotor M_reload;
+
+    // Misc.
     double speed;
 
     @Override
     public void init() {
-        leftF = hardwareMap.get(DcMotor.class, "leftFront");
-        rightF = hardwareMap.get(DcMotor.class, "rightFront");
-        leftB = hardwareMap.get(DcMotor.class, "leftBack");
-        rightB = hardwareMap.get(DcMotor.class, "rightBack");
+        // Assign motors
+        M_leftF = hardwareMap.get(DcMotor.class, "leftFront");
+        M_rightF = hardwareMap.get(DcMotor.class, "rightFront");
+        M_leftB = hardwareMap.get(DcMotor.class, "leftBack");
+        M_rightB = hardwareMap.get(DcMotor.class, "rightBack");
 
-        leftF.setDirection(DcMotor.Direction.FORWARD);
-        rightF.setDirection(DcMotor.Direction.FORWARD);
-        rightB.setDirection(DcMotor.Direction.FORWARD);
-        leftB.setDirection(DcMotorSimple.Direction.FORWARD);
+        // Set initial directions
+        M_leftF.setDirection(DcMotor.Direction.FORWARD);
+        M_rightF.setDirection(DcMotor.Direction.FORWARD);
+        M_rightB.setDirection(DcMotor.Direction.FORWARD);
+        M_leftB.setDirection(DcMotor.Direction.FORWARD);
 
+        S_launch.getController().pwmEnable();
+
+        // Misc.
         speed = 7;
+    }
+
+    private void reload() {
+        // Reloads the crossbow
+    }
+
+    private void shoot() {
+        // Shoots the disk
+        S_launch.setPosition(0);
     }
 
     @Override
     public void loop() {
-        leftF.setPower(gamepad1.right_stick_x + gamepad1.left_stick_x + (-gamepad1.left_stick_y));
-        leftB.setPower(gamepad1.right_stick_x - gamepad1.left_stick_x + (-gamepad1.left_stick_y));
-        rightB.setPower(gamepad1.right_stick_x + gamepad1.left_stick_x - (-gamepad1.left_stick_y));
-        rightF.setPower(gamepad1.right_stick_x - gamepad1.left_stick_x - (-gamepad1.left_stick_y));
+        M_leftF.setPower(gamepad1.right_stick_x + gamepad1.left_stick_x + (-gamepad1.left_stick_y));
+        M_leftB.setPower(gamepad1.right_stick_x - gamepad1.left_stick_x + (-gamepad1.left_stick_y));
+        M_rightB.setPower(gamepad1.right_stick_x + gamepad1.left_stick_x - (-gamepad1.left_stick_y));
+        M_rightF.setPower(gamepad1.right_stick_x - gamepad1.left_stick_x - (-gamepad1.left_stick_y));
     }
 }
